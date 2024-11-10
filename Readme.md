@@ -34,3 +34,4 @@ Make sure to have the necessary libraries installed:
 2. TF-IDF and cosine similarity used to filter relevant papers.
 3. Papers categorized based on keyword.
 4. Deep learning methods are extracted from abstracts.
+5. Script measures and prints running time.
