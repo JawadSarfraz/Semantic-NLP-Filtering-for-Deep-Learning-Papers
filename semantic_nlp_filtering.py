@@ -2,7 +2,10 @@ import pandas as pd
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import time
 
+# Start timer
+start_time = time.time()
 file_path = 'collection_with_abstracts.csv'
 data = pd.read_csv(file_path, encoding='utf-8')
 
@@ -97,5 +100,12 @@ def extract_methods(abstract):
 # Apply method extraction function
 relevant_papers.loc[:, 'Methods'] = relevant_papers['Cleaned_Abstract'].apply(extract_methods)
 
+end_time = time.time()
+# calculate running time
+running_time = end_time - start_time
+
 output_file_path = 'output_relevant_papers.csv'
 relevant_papers[['Title', 'Category', 'Methods', 'Abstract']].to_csv(output_file_path, index=False)
+
+print(f"Results written to File: {output_file_path}")
+print(f"Running Time: {running_time} seconds")
