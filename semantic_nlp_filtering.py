@@ -4,12 +4,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import time
 
-# Start timer
+# Step 1: Loading data and starting timer
 start_time = time.time()
 file_path = 'collection_with_abstracts.csv'
 data = pd.read_csv(file_path, encoding='utf-8')
 
-# Data Preprocessing - cleaning text
+# Step 2: Data Preprocessing - cleaning text
 def clean_text(text):
     if pd.isnull(text):
         return ""
@@ -33,7 +33,7 @@ keywords = [
 keywords_text = " ".join(keywords)
 
 
-# Semantic Filtering Using NLP, vectorize abstracts, keywords using TF-IDF
+# Step 3: Semantic Filtering Using NLP, vectorize abstracts, keywords using TF-IDF
 vectorizer = TfidfVectorizer()
 abstract_vectors = vectorizer.fit_transform(data['Cleaned_Abstract'])
 keywords_vector = vectorizer.transform([keywords_text])
@@ -51,7 +51,7 @@ for i, score in enumerate(cosine_similarities):
 
 relevant_papers = data.iloc[relevant_indices].copy()
 
-# Classification based on type of method used
+# # Step 4: Classification based on type of method used
 def classify_paper(abstract):
     text_mining_keywords = ["natural language processing", "text mining", "NLP","computational linguistics", "language processing", "text analytics", "textual data analysis", "text data analysis", "text analysis", "speech and language technology", "language modeling", "computational semantics"]
     computer_vision_keywords = ["computer vision", "vision model", "image processing", "vision algorithms", "computer graphics and vision", "object recognition", "scene understanding"]
